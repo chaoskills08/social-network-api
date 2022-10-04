@@ -5,7 +5,6 @@ const validateEmail = function(email) {
   return emailMatch.test(email);
 }
 
-
 const userM = new Schema(
   {
     username: {
