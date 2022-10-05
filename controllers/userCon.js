@@ -2,10 +2,12 @@ const {User, Thought} = require('../models');
 
 module.exports = {
   findAllUsers(req, res) {
-    User.findAll()
+    User.find()
     .then((user) => res.json(user))
-      if (err) throw err;
-      return res.status(404).json(err)
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json(err);
+    })
   },
 
   findUser(req, res) {
@@ -19,8 +21,10 @@ module.exports = {
   createUser(req, res) {
     User.create(req.body)
     .then((user) => res.json(user))
-      if (err) throw err;
-      return res.status(404).json(err);
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json(err);
+    })
   },
 
   deleteUser(req, res) {

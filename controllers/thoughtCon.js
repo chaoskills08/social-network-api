@@ -2,10 +2,12 @@ const {Thought, thought} = require('../models');
 
   module.exports = {
     findAllThoughts(req, res) {
-      Thought.findAll()
+      Thought.find()
       .then((thoughts) => res.json(thoughts))
-        if (err) throw err;
-        return res.status(404).json(err)
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      })
     },
   
     findThought(req, res) {
@@ -19,8 +21,10 @@ const {Thought, thought} = require('../models');
     createThought(req, res) {
       Thought.create(req.body)
       .then((thought) => res.json(thought))
-        if (err) throw err;
-        return res.status(404).json(err);
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      })
     },
   
     deleteThought(req, res) {
