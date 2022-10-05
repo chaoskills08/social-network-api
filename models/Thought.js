@@ -1,24 +1,26 @@
 const {Schema, model, Types} = require('mongoose');
 const reactionSchema = require('./Reaction');
 
-const thoughtSchema = new Schema (
+const thoughtSchema = new Schema(
   {
     thoughtId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId()
     },
     thoughtText: {
-      Type: String,
+      type: String,
       required: true,
-      max: 280
+      maxLength: 280,
+      minLength: 1
     },
     createdAt: {
-      Type: Date,
+      type: Date,
       default: Date.now
     },
     username: {
-      Type: String,
-      required: true
+      type: String,
+      required: true,
+      default: 'Anonymous'
     },
     reactions: [reactionSchema]
   },
@@ -27,10 +29,10 @@ const thoughtSchema = new Schema (
       virtuals: true
     }
   }
-)
+);
 
 thoughtSchema.virtual('reactionCount').get(function () {
-  return `${this.reactions.max}`
+  return `${this.reactions.maxLength}`
 });
 
 const thought = model('thought', thoughtSchema);
