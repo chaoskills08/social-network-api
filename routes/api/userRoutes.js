@@ -4,7 +4,6 @@ const {
   getUsers,
   getUser,
   makeUser,
-  updateUser,
   deleteUser,
   addFriend,
   removeFriend
