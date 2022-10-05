@@ -1,5 +1,5 @@
 {
-  "name": "Friend Simulator",
+  "name": "friendsimulator",
   "version": "1.0.1",
   "description": "Social network backend",
   "main": "server.js",
