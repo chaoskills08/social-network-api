@@ -6,8 +6,11 @@ const {
 
 router.route('/').get(findAllThoughts).post(createThought);
 
-router.route('/:userId').get(findThought).put(updateThought).delete(deleteThought)
+router.route('/:thoughtId/').get(findThought).put(updateThought).delete(deleteThought)
 
-router.route('/:userId/friend/:friendId').delete(deleteReaction).put(addReaction)
+router.route('/:thoughtId/reactions').post(addReaction)
+
+router.route('/:thoughtId/reactions/:_id').delete(deleteReaction)
+
 
 module.exports = router
