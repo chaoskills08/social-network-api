@@ -1,6 +1,15 @@
 const {Thought, thought} = require('../models');
 
-  module.exports = {
+module.exports = {
+    
+    findThought(req, res) {
+      Thought.findOne({_id: req.params.thoughtId})
+      .select('-__v')
+      .then((thought) =>
+        !thought ? res.status(404).json({message: 'No thought associated with that ID'})
+        : res.json(thought));
+      }, 
+
     findAllThoughts(req, res) {
       Thought.find()
       .then((thoughts) => res.json(thoughts))
@@ -9,15 +18,7 @@ const {Thought, thought} = require('../models');
         return res.status(500).json(err);
       })
     },
-  
-    findThought(req, res) {
-      Thought.findOne({_id: req.params.thoughtId})
-      .select('-__v')
-      .then((thought) =>
-        !thought ? res.status(404).json({message: 'No thought associated with that ID'})
-        : res.json(thought));
-    }, 
-  
+    
     createThought(req, res) {
       Thought.create(req.body)
       .then((thought) => res.json(thought))

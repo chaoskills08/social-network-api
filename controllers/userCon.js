@@ -1,6 +1,15 @@
 const {User, Thought} = require('../models');
 
 module.exports = {
+  
+  findUser(req, res) {
+    User.findOne({_id: req.params.userId})
+    .select('-__v')
+    .then((user) =>
+    !user ? res.status(404).json({message: 'No user associated with that ID'})
+    : res.json(user));
+  }, 
+  
   findAllUsers(req, res) {
     User.find()
     .then((user) => res.json(user))
@@ -9,14 +18,6 @@ module.exports = {
       return res.status(500).json(err);
     })
   },
-
-  findUser(req, res) {
-    User.findOne({_id: req.params.userId})
-    .select('-__v')
-    .then((user) =>
-      !user ? res.status(404).json({message: 'No user associated with that ID'})
-      : res.json(user));
-  }, 
 
   createUser(req, res) {
     User.create(req.body)
